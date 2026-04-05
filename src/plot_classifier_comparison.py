@@ -96,9 +96,10 @@ for ds_cnt, ds in enumerate(datasets):
     for name, clf in zip(names, classifiers):
         ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
 
-        clf = make_pipeline(StandardScaler(), clf)
+clf = make_pipeline(StandardScaler(), clf)
         clf.fit(X_train, y_train)
         score = clf.score(X_test, y_test)
+        clf.score(X_train, y_train)
         DecisionBoundaryDisplay.from_estimator(
             clf, X, cmap=cm, alpha=0.8, ax=ax, eps=0.5
         )
