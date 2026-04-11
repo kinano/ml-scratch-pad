@@ -123,4 +123,4 @@ The hybrid approach mixes features freely. But real features are often correlate
 - [Interpretable ML Book — Shapley Values](https://christophm.github.io/interpretable-ml-book/shapley.html)
 - [SHAP library docs](https://shap.readthedocs.io/)
 - [Original SHAP paper (Lundberg & Lee, 2017)](https://proceedings.neurips.cc/paper_files/paper/2017/file/8a20a8621978632d76c43dfd28b67767-Paper.pdf)
-- See also: `src/Shapley-Values.ipynb` in this repo for runnable code examples
+- See also: `src/random_and_isolation_forests_revised.ipynb` in this repo for runnable code examples
