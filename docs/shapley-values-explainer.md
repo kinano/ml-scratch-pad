@@ -76,6 +76,34 @@ The reason you try all orderings is so the result doesn't depend on some arbitra
 
 ---
 
+## Handling Too Many Features
+
+Trying every possible subset is exponential — 2^n subsets. With 4 features that's 16. With 20 it's over a million. With 50 it's impossible.
+
+Three ways to deal with this:
+
+**1. Monte Carlo sampling**
+
+Instead of trying all subsets, randomly sample a fixed number of orderings (e.g. 500). You get an approximation, not the exact answer. More samples = more accurate, but slower. This is `KernelExplainer` in the shap library.
+
+**2. Exploit the model structure**
+
+For tree-based models, the tree structure lets you compute exact Shapley values in polynomial time by walking the branches directly — no sampling needed. This is `TreeExplainer`. Same idea exists for linear models (`LinearExplainer`). Both are fast *and* exact.
+
+**3. Kernel trick**
+
+`KernelExplainer` uses a weighted linear regression over sampled subsets to approximate Shapley values. It's model-agnostic (works on anything — neural nets, SVMs, whatever) but slow. Use it when no model-specific explainer exists.
+
+**Practical rule:**
+
+| Model type | Use |
+|---|---|
+| Random Forest, XGBoost, LightGBM | `TreeExplainer` — fast, exact |
+| Linear / logistic regression | `LinearExplainer` — fast, exact |
+| Anything else (neural net, SVM…) | `KernelExplainer` — slow, approximate |
+
+---
+
 ## What the Numbers Mean
 
 Say petal length gets a Shapley value of **+0.25** for predicting "setosa."
