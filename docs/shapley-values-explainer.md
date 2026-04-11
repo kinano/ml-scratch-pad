@@ -106,6 +106,19 @@ For tree-based models, the tree structure lets you compute exact Shapley values 
 
 ## What the Numbers Mean
 
+When you print Shapley values for a single prediction, you get a table with one row per feature and one column per class. The shape is `(n_features) × (n_classes)`.
+
+- **4 rows** = 4 features
+- **3 columns** = 3 class probabilities the model outputs
+
+You get a separate Shapley value per class because the model isn't making one prediction — it's outputting three probabilities simultaneously. A feature can push the setosa probability *down* and the versicolor probability *up* at the same time. Those are different contributions, so they get different values.
+
+| Model type | Table shape |
+|---|---|
+| Multiclass classifier (3 classes) | `(n_features, 3)` |
+| Binary classifier | `(n_features, 2)` or `(n_features,)` |
+| Regressor | `(n_features,)` — no class dimension |
+
 Say petal length gets a Shapley value of **+0.25** for predicting "setosa."
 
 That means: across all the hybrid combinations tried, petal length's presence pushed the setosa probability up by 0.25 on average, compared to the baseline.
